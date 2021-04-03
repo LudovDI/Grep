@@ -10,10 +10,10 @@ import java.util.List;
 
 public class GrepLauncher {
     @Option(name = "-v", metaVar = "--invert-match", usage = "invert")
-    private Boolean invert;
+    private boolean invert;
 
     @Option(name = "-i", metaVar = "--ignore-case", usage = "ignoreCase")
-    private Boolean ignoreCase;
+    private boolean ignoreCase;
 
     @Option(name = "-r", metaVar = "regex", usage = "find with regex")
     private boolean regex;
@@ -40,8 +40,6 @@ public class GrepLauncher {
             return;
         }
 
-        ignoreCase = ignoreCase != null && ignoreCase;
-        invert = invert != null && invert;
         Grep grep = new Grep(inputFileName, word, ignoreCase, invert);
         try {
             List<String> lines = grep.filter();

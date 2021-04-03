@@ -10,25 +10,20 @@ public class Grep {
 
     private final String fileName;
 
-    private final String regex;
+    private final boolean v;
 
-    private final Boolean i;
+    private final Pattern pattern;
 
-    private final Boolean v;
-
-    public Grep(String fileName, String regex, Boolean i, Boolean v) {
+    public Grep(String fileName, String regex, boolean i, boolean v) {
         this.fileName = fileName;
-        this.i = i;
         this.v = v;
-        this.regex = regex;
+        pattern = (i) ? Pattern.compile(regex, Pattern.CASE_INSENSITIVE) : Pattern.compile(regex);
     }
 
     public List<String> filter() throws IOException {
         List<String> result = new ArrayList<>();
-        FileReader fr = new FileReader(new File(fileName));
-        try (BufferedReader br = new BufferedReader(fr)) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))) {
             String line = br.readLine();
-            Pattern pattern = (i) ? Pattern.compile(regex, Pattern.CASE_INSENSITIVE) : Pattern.compile(regex);
             while (line != null) {
                 Matcher matcher = pattern.matcher(line);
                 if (v ^ matcher.find()) result.add(line);
