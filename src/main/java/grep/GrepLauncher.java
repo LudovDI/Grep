@@ -40,7 +40,7 @@ public class GrepLauncher {
             return;
         }
 
-        Grep grep = new Grep(inputFileName, word, ignoreCase, invert);
+        Grep grep = new Grep(inputFileName, regex, ignoreCase, invert, word);
         try {
             List<String> lines = grep.filter();
             for (String line : lines) {
